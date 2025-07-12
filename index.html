@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>五目並べゲーム</title>
     <link rel="stylesheet" href="style.css">
+    
+    <link rel="manifest" href="manifest.json">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="五目並べ">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png"> <meta name="theme-color" content="#DEB887"> 
 </head>
 <body>
     <div id="game-container">
@@ -14,6 +21,21 @@
         <button id="resetButton">最初から</button>
     </div>
 
-    <script src="script.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // ブラウザがService Workerをサポートしているか確認
+        if ('serviceWorker' in navigator) {
+            // ページが完全に読み込まれた後にService Workerを登録
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registered:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>
